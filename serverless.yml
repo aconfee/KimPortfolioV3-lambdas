@@ -1,4 +1,4 @@
-service: kim-instagram
+service: kimgreenough-sites
 
 provider:
   name: aws
@@ -13,10 +13,22 @@ functions:
       - http:
           path: instagramfeed
           method: get
-  sendMessage:
-    handler: handler.sendMessage
+  sendPortfolioMessage:
+    handler: handler.sendPortfolioMessage
     events:
       - http:
-          path: contact
+          path: portfolio/contact
+          method: post
+  sendCommissionInquiry:
+    handler: handler.sendCommissionInquiry
+    events:
+      - http:
+          path: commission/inquiry
+          method: post
+  sendCommissionMessage:
+    handler: handler.sendCommissionMessage
+    events:
+      - http:
+          path: commission/message
           method: post
 

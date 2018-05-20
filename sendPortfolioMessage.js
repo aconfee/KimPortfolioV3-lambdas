@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 const axios = require('axios');
 const ORIGIN = require('appsettings').ORIGIN;
 
-module.exports.sendMessage = (event, context, callback) => {
+module.exports.sendPortfolioMessage = (event, context, callback) => {
 
     const SMTP_CLIENT_ID = process.env.SMTP_CLIENT_ID;
     if(!SMTP_CLIENT_ID) {
