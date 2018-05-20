@@ -1,0 +1,25 @@
+{
+  "name": "kimportfolio-instagramfeed-lambda",
+  "version": "1.0.0",
+  "description": "Lambda functions for Kims portfolio",
+  "main": "handler.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "nodemailer": "^4.6.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "serverless deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aconfee/KimPortfolioV3-lambdas.git"
+  },
+  "author": "Adam Estela",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aconfee/KimPortfolioV3-lambdas/issues"
+  },
+  "homepage": "https://github.com/aconfee/KimPortfolioV3-lambdas#readme"
+}

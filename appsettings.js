@@ -1,0 +1,1 @@
+module.exports.ORIGIN = "http://www.kimgreenough.com";

@@ -1,4 +1,4 @@
 'use strict';
 
-require('./instagramFeed.js');
-
+module.exports.getInstagramFeed = require('./instagramFeed').getInstagramFeed;
+module.exports.sendMessage = require('./sendEmail').sendMessage;

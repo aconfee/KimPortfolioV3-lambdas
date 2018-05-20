@@ -13,3 +13,10 @@ functions:
       - http:
           path: instagramfeed
           method: get
+  sendMessage:
+    handler: handler.sendMessage
+    events:
+      - http:
+          path: contact
+          method: post
+
