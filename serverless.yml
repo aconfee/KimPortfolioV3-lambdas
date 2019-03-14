@@ -31,4 +31,10 @@ functions:
       - http:
           path: commission/message
           method: post
+  addMemberToMailchimpList:
+    handler: handler.addMemberToMailchimpList
+    events:
+      - http:
+          path: giveaway/addcontestant
+          method: post
 
