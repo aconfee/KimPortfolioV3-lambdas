@@ -2,6 +2,7 @@ const axios = require('axios');
 const GIVEAWAY_CORS_ORIGIN = require('appsettings').GIVEAWAY_CORS_ORIGIN;
 
 module.exports.addMemberToMailchimpList = (event, context, callback) => {
+    console.log("Creating mailchimp contestant.")
     const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
     if(!MAILCHIMP_API_KEY) {
         console.error("Please set environment variable MAILCHIMP_API_KEY for Mailchimp access.");
@@ -20,7 +21,9 @@ module.exports.addMemberToMailchimpList = (event, context, callback) => {
     const addMemberToListUrl = `https://us15.api.mailchimp.com/3.0/lists/${MAILCHIMP_LIST_ID}/members`;
     const addTagToMemeberUrl = `https://us15.api.mailchimp.com/3.0/lists/${MAILCHIMP_LIST_ID}/segments/${MAILCHIMP_SEGMENT_ID}/members`;
     
-    const { firstname, lastname, email } = event;
+    const { firstname, lastname, email } = JSON.parse(event.body);
+
+    console.log(`Contestant information is: ${firstname} ${lastname} ${email}.`);
 
     axios.post(addMemberToListUrl, {
         "email_address": email,
@@ -35,12 +38,14 @@ module.exports.addMemberToMailchimpList = (event, context, callback) => {
           "Authorization": `apikey ${MAILCHIMP_API_KEY}`
         }
       }).then(response => {   
+        console.log("Contestant added.");
         axios.post(addTagToMemeberUrl, {"email_address": email},{
           headers: {
             "Content-Type": "application/json",
             "Authorization": `apikey ${MAILCHIMP_API_KEY}`
           }
         }).then(response => {   
+          console.log("Tag added.");
           const successResponse = {
             statusCode: 200,
             headers: { "Access-Control-Allow-Origin": GIVEAWAY_CORS_ORIGIN },

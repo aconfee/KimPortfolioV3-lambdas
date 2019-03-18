@@ -5,27 +5,13 @@ const ORIGIN = require('appsettings').ORIGIN;
 
 module.exports.sendPortfolioMessage = (event, context, callback) => {
 
-    const SMTP_CLIENT_ID = process.env.SMTP_CLIENT_ID;
-    if(!SMTP_CLIENT_ID) {
-        console.error("Please set environment variable SMTP_CLIENT_ID for email messenger.");
-    }
-
-    const SMTP_CLIENT_SECRET = process.env.SMTP_CLIENT_SECRET;
-    if(!SMTP_CLIENT_SECRET) {
-        console.error("Please set environment variable SMTP_CLIENT_SECRET for email messenger.");
-    }
-
-    const SMTP_REFRESH_TOKEN = process.env.SMTP_REFRESH_TOKEN;
-    if(!SMTP_REFRESH_TOKEN) {
-        console.error("Please set environment variable SMTP_REFRESH_TOKEN for email messenger.");
-    }
-
-    const SMTP_ACCESS_TOKEN = process.env.SMTP_ACCESS_TOKEN;
-    if(!SMTP_ACCESS_TOKEN) {
-        console.error("Please set environment variable SMTP_ACCESS_TOKEN for email messenger.");
+    const GMAIL_PASSWORD = process.env.GMAIL_PASSWORD;
+    if(!GMAIL_PASSWORD) {
+        console.error("Please set environment variable GMAIL_PASSWORD for email messenger.");
     }
 
     const { first, last, email, message } = JSON.parse(event.body);
+    console.log("Event received: ", event.body);
 
     const messageText = `
         Sender:
@@ -34,34 +20,18 @@ module.exports.sendPortfolioMessage = (event, context, callback) => {
         Message:
         ${message}`;
 
-    const messageHtml = `<div>
-        <h1>Sender</h1>
-        <p>${first} ${last}</p>
-        <p>${email}</p>
-        <br />
-        <h1>Message</h1>
-        <p>${message}</p>
-    </div>`;
-
     const mailOptions = {
-        from: '"Portfolio Message" <adamestela@gmail.com>',
+        from: "adamestela@gmail.com",
         to: "kimbyarting@gmail.com",
         subject: "PORTFOLIO MESSAGE!!",
-        text: messageText,
-        html: messageHtml
+        text: messageText
     };
 
     const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true, // secure:true for port 465, secure:false for port 587
+        service: "Gmail",
         auth: {
-            type: "OAuth2",
             user: "adamestela@gmail.com",
-            clientId: SMTP_CLIENT_ID,
-            clientSecret: SMTP_CLIENT_SECRET,
-            refreshToken: SMTP_REFRESH_TOKEN,
-            accessToken: SMTP_ACCESS_TOKEN
+            pass: GMAIL_PASSWORD
         }
     });
 

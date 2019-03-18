@@ -13,6 +13,7 @@ functions:
       - http:
           path: instagramfeed
           method: get
+          cors: true
   sendPortfolioMessage:
     handler: handler.sendPortfolioMessage
     events:
@@ -37,4 +38,5 @@ functions:
       - http:
           path: giveaway/addcontestant
           method: post
+          cors: true
 
